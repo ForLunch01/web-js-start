@@ -1,23 +1,17 @@
-let paragraphElement = document.body.querySelector('p');
+const productNameInputElement = document.getElementById('product-name')
+const remainingCharsElement = document.getElementById('remaining-chars')
 
-let countVal = 0
+const maxAllowedChars = productNameInputElement.maxLength;
 
-function changeParagraphText(event) {
-    countVal += 1;
-    paragraphElement.textContent = 'Clicked!' + countVal;
-    console.log(event)
+// 함수 내의 변수가 변하는가?
+// 아니오. 함수가 실행될 때마다 새로 초기화되므로 변하는 것이 아님.
+function updateRemainingCharacters(event) {
+    const enteredText = event.target.value;
+    const enteredTextLength = enteredText.length;
+
+    const remainingCharacters = maxAllowedChars - enteredTextLength;
+
+    remainingCharsElement.textContent = remainingCharacters;
 }
 
-paragraphElement.addEventListener('click', changeParagraphText);
-
-let inputElement = document.querySelector('input');
-
-function retrieveUserInput(event) {
-    // let enteredText = inputElement.value;
-    let enteredText = event.target.value;
-    // let enteredText = event.data;
-    console.log(enteredText);
-    // console.log(event);
-}
-
-inputElement.addEventListener('input', retrieveUserInput);
+productNameInputElement.addEventListener('input', updateRemainingCharacters)
